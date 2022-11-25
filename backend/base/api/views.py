@@ -53,7 +53,7 @@ def getNotes(request):
 def massageCreate(request):
     z = request.data
     response = requests.get(z['api']+'/api?input='+z['message'])
-    print(response)
+   
     if response.status_code == 500 :
         return JsonResponse({'foo':'bar'})
     #convert reponse data into json
