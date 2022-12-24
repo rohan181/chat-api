@@ -7,10 +7,11 @@ from rest_framework.permissions import IsAuthenticated
 
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView
+from rest_framework import status
 
 
-from .serializers import NoteSerializer
-from base.models import Note
+from .serializers import NoteSerializer,videoSerializer
+from base.models import Note ,video
 
 
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
@@ -70,3 +71,29 @@ def massageCreate(request):
     if serializer.is_valid():
 	    serializer.save()
     return Response(serializer.data)
+
+
+@api_view(['POST'])
+def uploadvideo(request):
+    item =videoSerializer(data=request.data)
+  
+    # validating for already existing data
+
+  
+    if item.is_valid():
+        item.save()
+        return Response(item.data)
+    else:
+        return Response(status=status.HTTP_404_NOT_FOUND)    
+
+
+@api_view(['GET'])
+def videolist(request):
+    
+    # checking for the parameters from the URL
+    
+    items = video.objects.all()
+  
+    # if there is something in items else raise error
+    serializer = videoSerializer(items, many=True)
+    return Response(serializer.data)     
