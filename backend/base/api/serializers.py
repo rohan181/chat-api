@@ -1,5 +1,5 @@
 from rest_framework.serializers import ModelSerializer
-from base.models import Note,video
+from base.models import *
 
 
 class NoteSerializer(ModelSerializer):
@@ -9,6 +9,12 @@ class NoteSerializer(ModelSerializer):
 
 
 class videoSerializer(ModelSerializer):
+    class Meta:
+        model =video
+        fields = '__all__'
+
+
+class userprofileseriasilser(ModelSerializer):
     class Meta:
         model =video
         fields = '__all__'

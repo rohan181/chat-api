@@ -69,8 +69,10 @@ def massageCreate(request):
    
     serializer = NoteSerializer(data=z)
     if serializer.is_valid():
-	    serializer.save()
-    return Response(serializer.data)
+        serializer.save()
+        return Response(serializer.data)
+    else:
+        return Response(status=status.HTTP_404_NOT_FOUND)     
 
 
 @api_view(['POST'])
